@@ -21,14 +21,14 @@ from fsm import LifeNumCounterMachine
 from analysis import analysisGenerator
 
 machine = LifeNumCounterMachine(
-    states=['input_birth','show_analysis','watch_today_density','pure_relax'],
+    states=['input_birth','show_analysis','watch_today_destiny','pure_relax'],
     transitions=[
         {'trigger' : 'lifeNumPath' , 'source' : 'user' , 'dest' : 'input_birth' , 'conditions' : 'look_life_num'},
         {'trigger' : 'lifeNumPath' , 'source' : 'input_birth' , 'dest' : 'show_analysis' , 'conditions' : 'is_going_to_watch_analysis'},
-        {'trigger' : 'is_going_to_watch_density' , 'source' : 'user' , 'dest' : 'watch_today_density'},
+        {'trigger' : 'is_going_to_watch_density' , 'source' : 'user' , 'dest' : 'watch_today_destiny'},
         {'trigger' : 'is_going_to_pure_relax','source' : 'user','dest' : 'pure_relax'},
         {'trigger' : 'goBack' , 
-        'source' : ['user','input_birth','show_analysis','watch_today_density','pure_relax'] , 
+        'source' : ['user','input_birth','show_analysis','watch_today_destiny','pure_relax'] , 
         'dest' : 'user'}
     ],
     initial = 'user',
@@ -100,7 +100,7 @@ def handle_message(event):
     elif machine.state == 'user' and get_message =="我要計算生命靈數":
         reply = TextSendMessage(text="請輸入您得西曆生日 xxxx/xx/xx")
         machine.lifeNumPath(event)
-    elif machine.state == "input_birth":
+    elif machine.state == "input_birth" and get_message.lower() != "restart":
         try:
             machine.lifeNum = 0
             machine.lifeNumPath(event)
@@ -113,7 +113,7 @@ def handle_message(event):
         reply = []
         reply.append(
             ImagemapSendMessage(
-            base_url='https://i.imgur.com/1D0A2bG.jpeg',
+            base_url='https://i.imgur.com/gv4BHxj.jpeg',
             alt_text='url',
             base_size=BaseSize(height=1040,width=1040),
             actions=[
@@ -163,7 +163,7 @@ def handle_message(event):
         machine.advance(event)
         print(machine.state)
         reply = TextSendMessage(text=f"{comment}")
-    elif get_message == "restart":
+    elif get_message.lower() == "restart":
         reply = []
         reply.append( 
             TemplateSendMessage(
