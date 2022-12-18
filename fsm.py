@@ -18,28 +18,3 @@ class LifeNumCounterMachine(GraphMachine):
         print(self.lifeNum)
         return True
 
-# machine = LifeNumCounterMachine(
-#     states=['show_num','show_analysis','call_counsel'],
-#     transitions=[
-#         {'trigger' : 'advance' , 'source' : 'user' , 'dest' : 'show_num' , 'conditions' : 'is_going_to_input_birth'},
-#         {'trigger' : 'advance' , 'source' : 'show_num' , 'dest' : 'show_analysis' , 'conditions' : 'is_going_to_watch_analysis'},
-#         {'trigger' : 'advance' , 'source' : 'show_num' , 'dest' : 'call_counsel' , 'conditions' : 'is_going_to_call_councel'},
-#         {'trigger' : 'goBack' , 
-#         'source' : ['show_num','show_analysis','call_counsel'] , 
-#         'dest' : 'user'}
-#     ],
-#     initial = 'user',
-#     auto_transitions = False,
-#     show_conditions = True
-# )
-
-# machine.advance()
-# print(machine.state)
-# machine.advance()
-# print(machine.state)
-# machine.goBack()
-# print(machine.state)
-# machine.advance()
-# print(machine.state)
-
-# machine.get_graph().draw('fsm.png', prog='dot', format='png')

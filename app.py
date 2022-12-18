@@ -197,4 +197,6 @@ def handle_message(event):
     line_bot_api.reply_message(event.reply_token, reply)
 
 if __name__ == "__main__":
+    machine.get_graph().draw('fsm.png', prog='dot', format='png')
     app.run(port=5002)
+    
